@@ -155,8 +155,7 @@ public class CommonBase {
 	public WebDriver initChromeDriver() {
 		System.out.println("Launching Chrome browser...");
 		ChromeOptions options = new ChromeOptions();
-		System.setProperty("webdriver.chrome.driver", 
-		System.getProperty("user.dir") + "\\driver\\chromedriver.exe");
+		System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "\\driver\\chromedriver.exe");
 		driver = new ChromeDriver(options);
 		driver.manage().window().maximize();
 		return driver;
@@ -164,8 +163,7 @@ public class CommonBase {
 
 	public WebDriver initFirefoxDriver() {
 		System.out.println("Launching Firefox browser...");
-		System.setProperty("webdriver.firefox.driver", 
-		System.getProperty("user.dir") + "\\driver\\geckodriver.exe");
+		System.setProperty("webdriver.firefox.driver", System.getProperty("user.dir") + "\\driver\\geckodriver.exe");
 		driver = new FirefoxDriver();
 		driver.manage().window().maximize();
 		return driver;
@@ -173,26 +171,23 @@ public class CommonBase {
 
 	public WebDriver initEdgeDriver() {
 		System.out.println("Launching Edge browser...");
-		System.setProperty("webdriver.edge.driver",
-		System.getProperty("user.dir") + "\\driver\\msedgedriver.exe");
+		System.setProperty("webdriver.edge.driver", System.getProperty("user.dir") + "\\driver\\msedgedriver.exe");
 		// Creating an object of EdgeDriver
-	    driver = new EdgeDriver();
+		driver = new EdgeDriver();
 		driver.manage().window().maximize();
 		return driver;
 	}
 
 	public WebDriver setupDriver(String browserName) {
-		switch (browserName.trim().toLowerCase()) {
-		case "chrome":
+		if (browserName.contains("chrome")) {
 			driver = initChromeDriver();
-			break;
-		case "firefox":
+		}
+		else if (browserName.contains("firefox")) {
 			driver = initFirefoxDriver();
-			break;
-		case "edge":
+		}
+		else if (browserName.contains("edge")) {
 			driver = initEdgeDriver();
-			break;
-		default:
+		} else {
 			System.out.println("Browser: " + browserName + " is invalid, Launching Chrome as browser of choice...");
 			driver = initChromeDriver();
 		}
